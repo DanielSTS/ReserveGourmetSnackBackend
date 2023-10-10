@@ -1,13 +1,13 @@
 import ReservationDao, { ReservationDto } from '../dao/reservation-dao';
 
-export default class GetReservations {
+export default class GetReservationsByEstablishment {
   constructor(private readonly reservationDao: ReservationDao) {}
 
   async execute(input: Input): Promise<ReservationDto[]> {
-    return this.reservationDao.listByUserId(input.email);
+    return this.reservationDao.listByEstablishmentId(input.establishmentId);
   }
 }
 
 type Input = {
-  email: string;
+  establishmentId: string;
 };

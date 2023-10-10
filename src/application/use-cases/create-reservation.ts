@@ -1,10 +1,12 @@
 import EstablishmentRepository from '../../domain/repositories/establishment-repository';
+import ReservationRepository from '../../domain/repositories/reservation-repository';
 import UserRepository from '../../domain/repositories/user-repository';
 
 export default class CreateReservation {
   constructor(
     private readonly establishmentRepository: EstablishmentRepository,
-    private readonly userRepository: UserRepository
+    private readonly userRepository: UserRepository,
+    private readonly reservationRepository: ReservationRepository
   ) {}
 
   async execute(input: Input) {
@@ -12,13 +14,13 @@ export default class CreateReservation {
     const establishment = await this.establishmentRepository.getById(
       input.establishmentId
     );
-    establishment.createReservation(
-      user.email,
+    const reservation = establishment.createReservation(
+      user.id,
       input.datetime,
       input.numPeople,
       input.observation
     );
-    await this.establishmentRepository.save(establishment);
+    await this.reservationRepository.save(reservation);
   }
 }
 

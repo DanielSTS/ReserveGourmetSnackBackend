@@ -10,7 +10,7 @@ export default class UpdateEstablishment {
   ) {}
 
   async execute(input: Input) {
-    const user = await this.userRepository.getByEmail(input.email);
+    const user = await this.userRepository.getOwnerByEmail(input.email);
 
     let establishment = await this.establishmentRepository
       .getByOwnerId(user.id)

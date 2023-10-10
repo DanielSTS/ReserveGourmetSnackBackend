@@ -5,11 +5,13 @@ export default class CreateUserOwner {
   constructor(private readonly userRepository: UserRepository) {}
 
   async execute(input: Input) {
-    const existingUser = await this.userRepository.getByEmail(input.email);
+    const existingUser = await this.userRepository
+      .getOwnerByEmail(input.email)
+      .catch(() => undefined);
     if (existingUser) {
       throw new Error('Email is already registered.');
     }
-    await this.userRepository.save(
+    await this.userRepository.saveOwner(
       await User.create(input.name, input.email, input.password)
     );
   }

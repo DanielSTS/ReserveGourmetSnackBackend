@@ -1,8 +1,7 @@
-import Email from './email';
 import Reservation from './reservation';
+import { randomUUID } from 'crypto';
 
 export default class Establishment {
-  private readonly reservations: Reservation[] = [];
   name: string;
   phone: string;
   openingHoursStart: Date;
@@ -46,48 +45,30 @@ export default class Establishment {
   }
 
   createReservation(
-    email: Email,
+    userId: string,
     datetime: Date,
     numPeople: number,
     observation: string
-  ) {
-    if (datetime < this.openingHoursStart || datetime > this.openingHoursEnd) {
-      throw new Error('Invalid opening hours');
-    }
+  ): Reservation {
     this.validateReservationHours(datetime);
-    const reservation = new Reservation(
-      email,
-      this.ownerId,
+    return new Reservation(
+      userId,
+      this.id,
+      randomUUID(),
       datetime,
       numPeople,
       observation
     );
-    this.reservations.push(reservation);
   }
 
-  updateReservation(
-    email: Email,
+  updateReservartion(
+    reservation: Reservation,
     datetime: Date,
     numPeople: number,
     observation: string
-  ) {
-    const reservation = this.reservations.find(
-      reservation => reservation.emailUser.value === email.value
-    );
-    if (!reservation) {
-      throw new Error('Reservation not found');
-    }
+  ): Reservation {
     this.validateReservationHours(datetime);
-    reservation.update(datetime, numPeople, observation);
-  }
-
-  cancelReservation(email: Email) {
-    const index = this.reservations.findIndex(
-      reservation => reservation.emailUser.value === email.value
-    );
-    if (index !== -1) {
-      this.reservations.splice(index, 1);
-    }
+    return reservation.update(datetime, numPeople, observation);
   }
 
   validateReservationHours(datetime: Date) {

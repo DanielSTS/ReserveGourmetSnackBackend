@@ -31,12 +31,11 @@ CREATE TABLE public.establishment (
 -- Definição da tabela public.reservation
 CREATE TABLE public.reservation (
   id uuid PRIMARY KEY,
-  "date" date NULL,
-  "time" timestamp NULL,
-  numpeople int4 NULL,
-  owner_establishment_id uuid NOT NULL,
+  "datetime" timestamp NULL,
+  num_people int4 NULL,
+  establishment_id uuid NOT NULL,
   user_id uuid NOT NULL,
-  CONSTRAINT fk_owner_establishment FOREIGN KEY (owner_establishment_id) REFERENCES public.owner_establishment (id),
+  CONSTRAINT fk_establishment FOREIGN KEY (establishment_id) REFERENCES public.establishment (id),
   CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES public.reserve_user (id)
 );
 

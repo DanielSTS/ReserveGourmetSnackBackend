@@ -15,6 +15,16 @@ export default class UserRepositoryDatabase implements UserRepository {
     await this.connection.query(query, values);
   }
 
+  async saveOwner(user: User): Promise<void> {
+    const query = `
+      INSERT INTO public.owner_establishment 
+        (id, name, email, password)
+      VALUES 
+        ($1, $2, $3,  $4)`;
+    const values = [user.id, user.name, user.email.value, user.password];
+    await this.connection.query(query, values);
+  }
+
   async update(user: User): Promise<void> {
     const query = `
     UPDATE public.reserve_user 
@@ -26,6 +36,22 @@ export default class UserRepositoryDatabase implements UserRepository {
 
   async getByEmail(email: string): Promise<User> {
     const query = 'SELECT * FROM public.reserve_user WHERE email = $1';
+    const values = [email];
+    const [result] = await this.connection.query(query, values);
+    if (!result) throw new Error('User not found');
+    const password = JSON.parse(result.password);
+    return User.restore(
+      result.id,
+      result.name,
+      result.email,
+      password.value,
+      password.salt,
+      result.phone
+    );
+  }
+
+  async getOwnerByEmail(email: string): Promise<User> {
+    const query = 'SELECT * FROM public.owner_establishment WHERE email = $1';
     const values = [email];
     const [result] = await this.connection.query(query, values);
     if (!result) throw new Error('User not found');

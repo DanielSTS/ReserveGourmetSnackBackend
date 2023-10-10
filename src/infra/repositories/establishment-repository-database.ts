@@ -26,15 +26,15 @@ export default class EstablishmentRepositoryDatabase
   }
 
   async update(establishment: Establishment): Promise<void> {
-    const query = `UPDATE public.establishment SET id = $1, name = $2, phone = $3, opening_hours_start = $4, opening_hours_end = $5, address = $6, category = $7 WHERE id = $1`;
+    const query = `UPDATE public.establishment SET name = $1, phone = $2, opening_hours_start = $3, opening_hours_end = $4, address = $5, category = $6 WHERE id = $7`;
     const values = [
-      establishment.ownerId,
       establishment.name,
       establishment.phone,
       establishment.openingHoursStart,
       establishment.openingHoursEnd,
       establishment.address,
-      establishment.category
+      establishment.category,
+      establishment.id
     ];
     await this.connection.query(query, values);
   }
