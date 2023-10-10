@@ -33,6 +33,7 @@ CREATE TABLE public.reservation (
   id uuid PRIMARY KEY,
   "datetime" timestamp NULL,
   num_people int4 NULL,
+  observation varchar(255) NULL,
   establishment_id uuid NOT NULL,
   user_id uuid NOT NULL,
   CONSTRAINT fk_establishment FOREIGN KEY (establishment_id) REFERENCES public.establishment (id),

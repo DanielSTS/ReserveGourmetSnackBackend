@@ -9,6 +9,7 @@ import HttpServer from './http-server';
 import GetEstablishments from '../../application/use-cases/get-establishments';
 import DaoFactory from '../../application/dao/dao-factory';
 import GetReservationsByUser from '../../application/use-cases/get-reservations-by-user';
+import GetReservationsByEstablishment from '../../application/use-cases/get-reservations-by-establishment';
 
 export default class Router {
   constructor(
@@ -43,6 +44,9 @@ export default class Router {
     const establishmentDao = daoFactory.createEstablishmentDao();
     const getEstablishment = new GetEstablishments(establishmentDao);
     const getReservationByUser = new GetReservationsByUser(reservationDao);
+    const getReservationByEstablishment = new GetReservationsByEstablishment(
+      reservationDao
+    );
 
     http.on('post', '/users', function (params: any, body: any) {
       return createUser.execute(body);
@@ -76,15 +80,15 @@ export default class Router {
       'get',
       '/reservations-by-user-id/:userId',
       function (params: any, body: any) {
-        return getReservationByUser.execute(params.userId);
+        return getReservationByUser.execute(params);
       }
     );
 
     http.on(
       'get',
-      '/reservations-by-establishiment-id/:establishimentId',
+      '/reservations-by-establishiment-id/:establishmentId',
       function (params: any, body: any) {
-        return getReservationByUser.execute(params.establishimentId);
+        return getReservationByEstablishment.execute(params);
       }
     );
   }

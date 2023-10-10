@@ -5,6 +5,7 @@ import Connection from '../database/connection';
 
 export default class ReservationDaoDatabase implements ReservationDao {
   constructor(readonly connection: Connection) {}
+
   async listByUserId(userId: string): Promise<ReservationDto[]> {
     const query = 'SELECT * FROM public.reservation WHERE user_id = $1';
     const values = [userId];
@@ -13,17 +14,16 @@ export default class ReservationDaoDatabase implements ReservationDao {
     const reservations: ReservationDto[] = result.map((row: any) => {
       return {
         id: row.id,
-        estableshmentId: row.estableshment_id,
-        datetime: row.date,
-        time: row.time,
-        numPeople: row.numpeople
+        establishmentId: row.establishment_id,
+        datetime: row.datetime,
+        numPeople: row.num_people
       };
     });
 
     return reservations;
   }
 
-  async listByEstableshimentId(
+  async listByEstablishmentId(
     establishmentId: string
   ): Promise<ReservationDto[]> {
     const query =
@@ -34,10 +34,9 @@ export default class ReservationDaoDatabase implements ReservationDao {
     const reservations: ReservationDto[] = result.map((row: any) => {
       return {
         id: row.id,
-        estableshmentId: row.estableshment_id,
-        datetime: row.date,
-        time: row.time,
-        numPeople: row.numpeople
+        establishmentId: row.establishment_id,
+        datetime: row.datetime,
+        numPeople: row.num_people
       };
     });
 
