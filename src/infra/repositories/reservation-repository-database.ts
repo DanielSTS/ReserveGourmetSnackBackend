@@ -6,6 +6,7 @@ export default class ReservationRepositoryDatabase
   implements ReservationRepository
 {
   constructor(readonly connection: Connection) {}
+
   async save(reservation: Reservation): Promise<void> {
     const query = `
     INSERT INTO public.reservation 
@@ -28,7 +29,8 @@ export default class ReservationRepositoryDatabase
     const values = [
       reservation.datetime,
       reservation.numPeople,
-      reservation.observation
+      reservation.observation,
+      reservation.id
     ];
     await this.connection.query(query, values);
   }
@@ -40,11 +42,17 @@ export default class ReservationRepositoryDatabase
     if (!result) throw new Error('Reservation not found');
     return new Reservation(
       result.user_id,
-      result.owner_establishment_id,
+      result.establishment_id,
       result.id,
       result.datetime,
       result.num_people,
       result.observation
     );
+  }
+
+  async delete(reservation: Reservation): Promise<void> {
+    const query = 'DELETE FROM public.reservation WHERE id = $1';
+    const values = [reservation.id];
+    await this.connection.query(query, values);
   }
 }

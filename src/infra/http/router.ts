@@ -11,6 +11,8 @@ import DaoFactory from '../../application/dao/dao-factory';
 import GetReservationsByUser from '../../application/use-cases/get-reservations-by-user';
 import GetReservationsByEstablishment from '../../application/use-cases/get-reservations-by-establishment';
 import Login from '../../application/use-cases/login';
+import CancelReservation from '../../application/use-cases/cancel-reservation';
+import GetUserInfo from '../../application/use-cases/get-user-info';
 
 export default class Router {
   constructor(
@@ -32,16 +34,23 @@ export default class Router {
       userRepository,
       establishmentRepository
     );
-    const updateReservation = new UpdateReservation(
-      establishmentRepository,
-      reservationRepository
-    );
     const createReservation = new CreateReservation(
       establishmentRepository,
       userRepository,
       reservationRepository
     );
 
+    const updateReservation = new UpdateReservation(
+      establishmentRepository,
+      reservationRepository
+    );
+
+    const cancelReservation = new CancelReservation(
+      reservationRepository,
+      establishmentRepository
+    );
+
+    const userDao = daoFactory.createUserDao();
     const reservationDao = daoFactory.createReservationDao();
     const establishmentDao = daoFactory.createEstablishmentDao();
     const getEstablishment = new GetEstablishments(establishmentDao);
@@ -49,9 +58,14 @@ export default class Router {
     const getReservationByEstablishment = new GetReservationsByEstablishment(
       reservationDao
     );
+    const getUserInfo = new GetUserInfo(userDao, reservationDao);
 
     http.on('post', '/login', function (params: any, body: any) {
       return login.execute(body);
+    });
+
+    http.on('get', '/users/:id', function (params: any, body: any) {
+      return getUserInfo.execute(params);
     });
 
     http.on('post', '/users', function (params: any, body: any) {
@@ -80,6 +94,10 @@ export default class Router {
 
     http.on('put', '/reservations', function (params: any, body: any) {
       return updateReservation.execute(body);
+    });
+
+    http.on('delete', '/reservations', function (params: any, body: any) {
+      return cancelReservation.execute(body);
     });
 
     http.on(

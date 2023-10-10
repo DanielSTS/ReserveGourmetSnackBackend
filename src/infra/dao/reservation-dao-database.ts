@@ -8,7 +8,7 @@ export default class ReservationDaoDatabase implements ReservationDao {
 
   async listByUserId(userId: string): Promise<ReservationDto[]> {
     const query = `
-    SELECT r.id, r.user_id, r.establishment_id, r.datetime, r.num_people, e.name, e.category
+    SELECT r.id, r.user_id, r.establishment_id, r.datetime, r.num_people, r.observation, e.name, e.category
     FROM public.reservation r
     JOIN public.establishment e ON r.establishment_id = e.id
     WHERE r.user_id = $1
@@ -24,7 +24,8 @@ export default class ReservationDaoDatabase implements ReservationDao {
         establishmentName: row.name,
         category: row.category,
         datetime: row.datetime,
-        numPeople: row.num_people
+        numPeople: row.num_people,
+        observation: row.observation
       };
     });
 
@@ -45,7 +46,8 @@ export default class ReservationDaoDatabase implements ReservationDao {
         userId: row.user_id,
         establishmentId: row.establishment_id,
         datetime: row.datetime,
-        numPeople: row.num_people
+        numPeople: row.num_people,
+        observation: row.observation
       };
     });
 

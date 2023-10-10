@@ -71,6 +71,12 @@ export default class Establishment {
     return reservation.update(datetime, numPeople, observation);
   }
 
+  cancelReservation(reservation: Reservation) {
+    if (Date.now() > reservation.datetime.getTime()) {
+      throw new Error('Invalid cancellation time');
+    }
+  }
+
   validateReservationHours(datetime: Date) {
     if (datetime < this.openingHoursStart || datetime > this.openingHoursEnd) {
       throw new Error('Invalid opening hours');

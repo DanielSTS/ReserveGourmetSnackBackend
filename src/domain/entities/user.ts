@@ -31,7 +31,6 @@ export default class User {
     salt: number,
     phone?: string
   ) {
-    console.log(value, salt, email);
     return new User(
       id,
       name,

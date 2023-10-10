@@ -10,7 +10,7 @@ export default class UpdateReservation {
   async execute(input: Input) {
     const reservation = await this.reservationRepository.getById(input.id);
     const establishment = await this.establishmentRepository.getById(
-      input.establishmentId
+      reservation.establishmentId
     );
     const updatedeReservation = establishment.updateReservartion(
       reservation,
@@ -24,7 +24,6 @@ export default class UpdateReservation {
 
 type Input = {
   id: string;
-  establishmentId: string;
   datetime: Date;
   numPeople: number;
   observation: string;

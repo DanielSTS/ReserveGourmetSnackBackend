@@ -3,9 +3,7 @@ import EstablishmentDao, {
 } from '../../application/dao/establishment-dao';
 import Connection from '../database/connection';
 
-export default class EstablishmentRepositoryDatabase
-  implements EstablishmentDao
-{
+export default class EstablishmentDaoDatabase implements EstablishmentDao {
   constructor(readonly connection: Connection) {}
 
   async list(): Promise<EstablishmentDto[]> {

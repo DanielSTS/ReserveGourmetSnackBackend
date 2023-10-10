@@ -1,23 +1,22 @@
 import EstablishmentRepository from '../../domain/repositories/establishment-repository';
-import UserRepository from '../../domain/repositories/user-repository';
+import ReservationRepository from '../../domain/repositories/reservation-repository';
 
 export default class CancelReservation {
   constructor(
-    private readonly establishmentRepository: EstablishmentRepository,
-    private readonly userRepository: UserRepository
+    private readonly reservationRepository: ReservationRepository,
+    private readonly establishmentRepository: EstablishmentRepository
   ) {}
 
   async execute(input: Input) {
-    const user = await this.userRepository.getByEmail(input.email);
+    const reservation = await this.reservationRepository.getById(input.id);
     const establishment = await this.establishmentRepository.getById(
-      input.establishmentId
+      reservation.establishmentId
     );
-    establishment.cancelReservation(user.email);
-    await this.establishmentRepository.save(establishment);
+    establishment.cancelReservation(reservation);
+    await this.reservationRepository.delete(reservation);
   }
 }
 
 type Input = {
-  email: string;
-  establishmentId: string;
+  id: string;
 };

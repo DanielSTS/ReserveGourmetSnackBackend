@@ -5,7 +5,7 @@ export default class UpdateUser {
 
   async execute(input: Input) {
     const user = await this.userRepository.getById(input.id);
-    user.update(input.name, input.password, input.phone);
+    await user.update(input.name, input.password, input.phone);
     await this.userRepository.update(user);
   }
 }

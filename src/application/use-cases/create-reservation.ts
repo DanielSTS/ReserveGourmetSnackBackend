@@ -10,7 +10,7 @@ export default class CreateReservation {
   ) {}
 
   async execute(input: Input) {
-    const user = await this.userRepository.getByEmail(input.email);
+    const user = await this.userRepository.getById(input.userId);
     const establishment = await this.establishmentRepository.getById(
       input.establishmentId
     );
@@ -25,7 +25,7 @@ export default class CreateReservation {
 }
 
 type Input = {
-  email: string;
+  userId: string;
   establishmentId: string;
   datetime: Date;
   numPeople: number;
