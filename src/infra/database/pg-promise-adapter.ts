@@ -6,7 +6,12 @@ export default class PgPromiseConnectionAdapter implements Connection {
   static instance: PgPromiseConnectionAdapter;
 
   private constructor() {
-    this.pgp = pgp()(process.env.DATABASE_URL as string);
+    const initOptions = {
+      query(e: { query: any }) {
+        console.log(e.query);
+      }
+    };
+    this.pgp = pgp(initOptions)(String(process.env.DATABASE_URL));
   }
 
   static getInstance() {

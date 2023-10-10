@@ -12,6 +12,10 @@ export default class BcryptPassword {
     return new BcryptPassword(value, salt);
   }
 
+  static async restore(value: string, salt: number): Promise<BcryptPassword> {
+    return new BcryptPassword(value, salt);
+  }
+
   async validate(password: string): Promise<boolean> {
     const ret = await compare(password, this.value);
     return ret;

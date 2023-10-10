@@ -1,21 +1,28 @@
 import CreateReservation from '../../application/use-cases/create-reservation';
 import CreateUser from '../../application/use-cases/create-user';
-import CreateUserAdmin from '../../application/use-cases/create-user-admin';
+import CreateUserOwner from '../../application/use-cases/create-user-owner';
 import UpdateUser from '../../application/use-cases/update-user';
-import UpdateEstablishment from '../../application/use-cases/update-establishiment';
+import UpdateEstablishment from '../../application/use-cases/update-establishment';
 import UpdateReservation from '../../application/use-cases/update-reservation';
 import RepositoryFactory from '../../domain/repositories/repository-factory';
 import HttpServer from './http-server';
-import GetEstablishments from '../../application/use-cases/get-establishiments';
+import GetEstablishments from '../../application/use-cases/get-establishments';
+import DaoFactory from '../../application/dao/dao-factory';
+import GetReservations from '../../application/use-cases/get-reservations';
 
 export default class Router {
-  constructor(http: HttpServer, repositoryFactory: RepositoryFactory) {
+  constructor(
+    http: HttpServer,
+    repositoryFactory: RepositoryFactory,
+    daoFactory: DaoFactory
+  ) {
     const userRepository = repositoryFactory.createUserRepository();
     const establishmentRepository =
-      repositoryFactory.createEstablishimentRepository();
+      repositoryFactory.createEstablishmentRepository();
+
     const createUser = new CreateUser(userRepository);
-    const createUserAdmin = new CreateUserAdmin(userRepository);
-    const editUser = new UpdateUser(userRepository);
+    const createUserAdmin = new CreateUserOwner(userRepository);
+    const updateUser = new UpdateUser(userRepository);
     const updateEstablishment = new UpdateEstablishment(
       userRepository,
       establishmentRepository
@@ -28,9 +35,13 @@ export default class Router {
       establishmentRepository,
       userRepository
     );
-    const getEstablishment = new GetEstablishments();
 
-    http.on('post', '/createUser', function (params: any, body: any) {
+    const reservationDao = daoFactory.createReservationDao();
+    const establishmentDao = daoFactory.createEstablishmentDao();
+    const getEstablishment = new GetEstablishments(establishmentDao);
+    const getReservationByUser = new GetReservations(reservationDao);
+
+    http.on('post', '/users', function (params: any, body: any) {
       return createUser.execute(body);
     });
 
@@ -38,11 +49,11 @@ export default class Router {
       return createUserAdmin.execute(body);
     });
 
-    http.on('put', '/updateUser', function (params: any, body: any) {
-      return editUser.execute(body);
+    http.on('put', '/users', function (params: any, body: any) {
+      return updateUser.execute(body);
     });
 
-    http.on('put', '/updateEstablishment', function (params: any, body: any) {
+    http.on('put', '/establishments', function (params: any, body: any) {
       return updateEstablishment.execute(body);
     });
 
@@ -52,6 +63,14 @@ export default class Router {
 
     http.on('post', '/createReservation', function (params: any, body: any) {
       return createReservation.execute(body);
+    });
+
+    http.on('get', '/establishments', function (params: any, body: any) {
+      return getEstablishment.execute();
+    });
+
+    http.on('get', '/reservations', function (params: any, body: any) {
+      return getReservationByUser.execute(body);
     });
   }
 }

@@ -3,15 +3,15 @@ import Reservation from './reservation';
 
 export default class Establishment {
   private readonly reservations: Reservation[] = [];
-  private name: string;
-  private phone: string;
-  private openingHoursStart: Date;
-  private openingHoursEnd: Date;
-  private address: string;
-  private category: string;
+  name: string;
+  phone: string;
+  openingHoursStart: Date;
+  openingHoursEnd: Date;
+  address: string;
+  category: string;
   constructor(
+    readonly ownerId: string,
     readonly id: string,
-    readonly emailAdmin: Email,
     name: string,
     phone: string,
     openingHoursStart: Date,
@@ -57,7 +57,7 @@ export default class Establishment {
     this.validateReservationHours(datetime);
     const reservation = new Reservation(
       email,
-      this.id,
+      this.ownerId,
       datetime,
       numPeople,
       observation

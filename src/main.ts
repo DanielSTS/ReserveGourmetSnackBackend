@@ -1,11 +1,11 @@
 import 'dotenv/config';
 import ExpressAdapter from './infra/http/express-adapter';
 import Router from './infra/http/router';
-import RepositoryFactoryDatabase from './infra/database/repositories/repository-factory-database';
-import PgPromiseConnectionAdapter from './infra/database/pg-promise-adapter';
+import RepositoryFactoryDatabase from './infra/repositories/repository-factory-database';
+import DaoFactoryDatabase from './infra/dao/dao-factory-database';
 
-const connection = PgPromiseConnectionAdapter.getInstance();
-const repositoryFactory = new RepositoryFactoryDatabase();
 const expressAdapter = new ExpressAdapter();
-new Router(expressAdapter, repositoryFactory);
-expressAdapter.listen(3000);
+const repositoryFactory = new RepositoryFactoryDatabase();
+const daoFactory = new DaoFactoryDatabase();
+new Router(expressAdapter, repositoryFactory, daoFactory);
+expressAdapter.listen(Number(process.env.PORT));

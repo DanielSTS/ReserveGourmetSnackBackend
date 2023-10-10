@@ -1,4 +1,4 @@
-import EstablishmentRepository from '../../domain/repositories/establishiment-repository';
+import EstablishmentRepository from '../../domain/repositories/establishment-repository';
 import UserRepository from '../../domain/repositories/user-repository';
 
 export default class CancelReservation {
@@ -9,11 +9,11 @@ export default class CancelReservation {
 
   async execute(input: Input) {
     const user = await this.userRepository.getByEmail(input.email);
-    const establishiment = await this.establishmentRepository.getById(
+    const establishment = await this.establishmentRepository.getById(
       input.establishmentId
     );
-    establishiment.cancelReservation(user.email);
-    await this.establishmentRepository.save(establishiment);
+    establishment.cancelReservation(user.email);
+    await this.establishmentRepository.save(establishment);
   }
 }
 

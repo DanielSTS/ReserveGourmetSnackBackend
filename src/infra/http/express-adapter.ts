@@ -1,11 +1,13 @@
 import express from 'express';
 import HttpServer from './http-server';
+import cors from 'cors';
 
 export default class ExpressAdapter implements HttpServer {
   private app: any;
 
   constructor() {
     this.app = express();
+    this.app.use(cors());
     this.app.use(express.json());
   }
 
@@ -15,6 +17,7 @@ export default class ExpressAdapter implements HttpServer {
       try {
         const output = await callback(req.params, req.body);
         res.json(output);
+        console.log('deu certo');
       } catch (e: any) {
         res.status(422).json({ message: e.message });
       }

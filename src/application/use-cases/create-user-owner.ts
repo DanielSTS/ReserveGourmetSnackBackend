@@ -1,7 +1,7 @@
 import User from '../../domain/entities/user';
 import UserRepository from '../../domain/repositories/user-repository';
 
-export default class CreateUserAdmin {
+export default class CreateUserOwner {
   constructor(private readonly userRepository: UserRepository) {}
 
   async execute(input: Input) {

@@ -1,4 +1,4 @@
-import EstablishmentRepository from '../../domain/repositories/establishiment-repository';
+import EstablishmentRepository from '../../domain/repositories/establishment-repository';
 import UserRepository from '../../domain/repositories/user-repository';
 
 export default class CreateReservation {
@@ -9,16 +9,16 @@ export default class CreateReservation {
 
   async execute(input: Input) {
     const user = await this.userRepository.getByEmail(input.email);
-    const establishiment = await this.establishmentRepository.getById(
+    const establishment = await this.establishmentRepository.getById(
       input.establishmentId
     );
-    establishiment.createReservation(
+    establishment.createReservation(
       user.email,
       input.datetime,
       input.numPeople,
       input.observation
     );
-    await this.establishmentRepository.save(establishiment);
+    await this.establishmentRepository.save(establishment);
   }
 }
 

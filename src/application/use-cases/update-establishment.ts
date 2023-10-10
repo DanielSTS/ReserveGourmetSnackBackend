@@ -1,6 +1,5 @@
-import Email from '../../domain/entities/email';
-import Establishment from '../../domain/entities/establishiment';
-import EstablishmentRepository from '../../domain/repositories/establishiment-repository';
+import Establishment from '../../domain/entities/establishment';
+import EstablishmentRepository from '../../domain/repositories/establishment-repository';
 import UserRepository from '../../domain/repositories/user-repository';
 import { randomUUID } from 'crypto';
 
@@ -13,12 +12,12 @@ export default class UpdateEstablishment {
   async execute(input: Input) {
     const user = await this.userRepository.getByEmail(input.email);
 
-    let establishiment = await this.establishmentRepository
-      .getByEmail(input.email)
+    let establishment = await this.establishmentRepository
+      .getByOwnerId(user.id)
       .catch(() => undefined);
 
-    if (establishiment) {
-      establishiment.update(
+    if (establishment) {
+      establishment.update(
         input.name,
         input.phone,
         input.openingHoursStart,
@@ -26,10 +25,11 @@ export default class UpdateEstablishment {
         input.address,
         input.category
       );
+      await this.establishmentRepository.update(establishment);
     } else {
-      establishiment = new Establishment(
+      establishment = new Establishment(
+        user.id,
         randomUUID(),
-        new Email(input.email),
         input.name,
         input.phone,
         input.openingHoursStart,
@@ -37,9 +37,8 @@ export default class UpdateEstablishment {
         input.address,
         input.category
       );
+      await this.establishmentRepository.save(establishment);
     }
-
-    await this.establishmentRepository.save(establishiment);
   }
 }
 

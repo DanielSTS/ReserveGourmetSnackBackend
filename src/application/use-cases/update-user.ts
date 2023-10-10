@@ -5,8 +5,8 @@ export default class UpdateUser {
 
   async execute(input: Input) {
     const user = await this.userRepository.getByEmail(input.email);
-    user.updatePhone(input.phone);
-    await this.userRepository.save(user);
+    user.update(input.name, input.password, input.phone);
+    await this.userRepository.update(user);
   }
 }
 

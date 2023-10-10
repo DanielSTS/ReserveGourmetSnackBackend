@@ -4,7 +4,7 @@ export default class GetReservations {
   constructor(private readonly reservationDao: ReservationDao) {}
 
   async execute(input: Input): Promise<ReservationDto[]> {
-    return this.reservationDao.listByEmail(input.email);
+    return this.reservationDao.listByUserId(input.email);
   }
 }
 
