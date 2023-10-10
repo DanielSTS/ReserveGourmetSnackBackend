@@ -35,8 +35,12 @@ export default class ReservationDaoDatabase implements ReservationDao {
   async listByEstablishmentId(
     establishmentId: string
   ): Promise<ReservationDto[]> {
-    const query =
-      'SELECT * FROM public.reservation WHERE establishment_id = $1';
+    const query = `
+      SELECT r.id, r.user_id, u.name, r.datetime, r.num_people, r.observation
+      FROM public.reservation r
+      JOIN public.reserve_user u ON r.user_id = u.id
+      WHERE r.establishment_id = $1
+    `;
     const values = [establishmentId];
     const result = await this.connection.query(query, values);
 
@@ -44,7 +48,7 @@ export default class ReservationDaoDatabase implements ReservationDao {
       return {
         id: row.id,
         userId: row.user_id,
-        establishmentId: row.establishment_id,
+        userName: row.name,
         datetime: row.datetime,
         numPeople: row.num_people,
         observation: row.observation

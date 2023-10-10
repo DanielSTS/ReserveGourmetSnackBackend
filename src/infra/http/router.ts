@@ -13,6 +13,8 @@ import GetReservationsByEstablishment from '../../application/use-cases/get-rese
 import Login from '../../application/use-cases/login';
 import CancelReservation from '../../application/use-cases/cancel-reservation';
 import GetUserInfo from '../../application/use-cases/get-user-info';
+import GetOwnerInfo from '../../application/use-cases/get-owner-info';
+import LoginOwner from '../../application/use-cases/login-owner';
 
 export default class Router {
   constructor(
@@ -27,6 +29,7 @@ export default class Router {
       repositoryFactory.createReservationRepository();
 
     const login = new Login(userRepository);
+    const loginOwner = new LoginOwner(userRepository);
     const createUser = new CreateUser(userRepository);
     const createUserOwner = new CreateUserOwner(userRepository);
     const updateUser = new UpdateUser(userRepository);
@@ -59,9 +62,14 @@ export default class Router {
       reservationDao
     );
     const getUserInfo = new GetUserInfo(userDao, reservationDao);
+    const getOwnerInfo = new GetOwnerInfo(reservationDao);
 
     http.on('post', '/login', function (params: any, body: any) {
       return login.execute(body);
+    });
+
+    http.on('post', '/login-owner', function (params: any, body: any) {
+      return loginOwner.execute(body);
     });
 
     http.on('get', '/users/:id', function (params: any, body: any) {
@@ -78,6 +86,10 @@ export default class Router {
 
     http.on('post', '/owners', function (params: any, body: any) {
       return createUserOwner.execute(body);
+    });
+
+    http.on('get', '/owners/:id', function (params: any, body: any) {
+      return getOwnerInfo.execute(params);
     });
 
     http.on('get', '/establishments', function (params: any, body: any) {

@@ -1,6 +1,7 @@
 export type ReservationDto = {
   id: string;
   userId: string;
+  userName?: string;
   establishmentId: string;
   category: string;
   establishmentName: string;
