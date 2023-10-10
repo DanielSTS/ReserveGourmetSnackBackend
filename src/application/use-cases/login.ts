@@ -9,7 +9,8 @@ export default class Login {
     if (await user.validatePassword(input.password)) {
       const tokenGenerator = new TokenGenerator('secret');
       return {
-        token: tokenGenerator.sign(user, new Date())
+        token: tokenGenerator.sign(user, new Date()),
+        id: user.id
       };
     } else {
       throw new Error('Invalid password.');
@@ -24,4 +25,5 @@ type Input = {
 
 type Output = {
   token: string;
+  id: string;
 };

@@ -6,4 +6,4 @@ export default interface EstablishmentRepository {
   getByEmail(email: string): Promise<Establishment>;
   getById(id: string): Promise<Establishment>;
   getByOwnerId(OwnerId: string): Promise<Establishment>;
-}
+  }

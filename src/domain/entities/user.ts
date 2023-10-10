@@ -12,7 +12,7 @@ export default class User {
   ) {}
 
   static async create(name: string, email: string, password: string) {
-    if (password.length < 8) {
+    if (password?.length < 8) {
       throw new Error('Password must have at least 8 characters.');
     }
     return new User(

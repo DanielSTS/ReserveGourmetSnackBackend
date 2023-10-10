@@ -1,6 +1,9 @@
 export type ReservationDto = {
   id: string;
+  userId: string;
   establishmentId: string;
+  category: string;
+  establishmentName: string;
   datetime: Date;
   numPeople: number;
   observation: string;
@@ -8,5 +11,5 @@ export type ReservationDto = {
 
 export default interface ReservationDao {
   listByUserId(userId: string): Promise<ReservationDto[]>;
-  listByEstablishmentId(establishimentId: string): Promise<ReservationDto[]>;
+  listByEstablishmentId(establishmentId: string): Promise<ReservationDto[]>;
 }
