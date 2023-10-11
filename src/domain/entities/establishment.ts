@@ -8,6 +8,8 @@ export default class Establishment {
   openingHoursEnd: Date;
   address: string;
   category: string;
+  maxCapacity: number;
+
   constructor(
     readonly ownerId: string,
     readonly id: string,
@@ -16,7 +18,8 @@ export default class Establishment {
     openingHoursStart: Date,
     openingHoursEnd: Date,
     address: string,
-    category: string
+    category: string,
+    maxCapacity: number
   ) {
     this.validateHours(openingHoursStart, openingHoursEnd);
     this.name = name;
@@ -25,6 +28,7 @@ export default class Establishment {
     this.openingHoursEnd = openingHoursEnd;
     this.address = address;
     this.category = category;
+    this.maxCapacity = maxCapacity;
   }
 
   update(
@@ -33,7 +37,8 @@ export default class Establishment {
     openingHoursStart: Date,
     openingHoursEnd: Date,
     address: string,
-    category: string
+    category: string,
+    maxCapacity: number
   ) {
     this.validateHours(openingHoursStart, openingHoursEnd);
     this.name = name;
@@ -42,6 +47,7 @@ export default class Establishment {
     this.openingHoursEnd = openingHoursEnd;
     this.address = address;
     this.category = category;
+    this.maxCapacity = maxCapacity;
   }
 
   createReservation(
@@ -78,13 +84,17 @@ export default class Establishment {
   }
 
   validateReservationHours(datetime: Date) {
-    if (datetime < this.openingHoursStart || datetime > this.openingHoursEnd) {
+    const time = datetime.getTime();
+    if (
+      time < this.openingHoursStart.getTime() ||
+      time > this.openingHoursEnd.getTime()
+    ) {
       throw new Error('Invalid opening hours');
     }
   }
 
   validateHours(openingHoursStart: Date, openingHoursEnd: Date) {
-    if (openingHoursStart >= openingHoursEnd) {
+    if (openingHoursStart.getTime() >= openingHoursEnd.getTime()) {
       throw new Error('Invalid hours');
     }
   }

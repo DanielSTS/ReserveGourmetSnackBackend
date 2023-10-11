@@ -81,4 +81,20 @@ export default class UserRepositoryDatabase implements UserRepository {
       result.phone
     );
   }
+
+  async getOwnerById(id: string): Promise<User> {
+    const query = 'SELECT * FROM public.owner_establishment WHERE id = $1';
+    const values = [id];
+    const [result] = await this.connection.query(query, values);
+    if (!result) throw new Error('User not found');
+    const password = JSON.parse(result.password);
+    return User.restore(
+      result.id,
+      result.name,
+      result.email,
+      password.value,
+      password.salt,
+      result.phone
+    );
+  }
 }

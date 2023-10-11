@@ -1,4 +1,4 @@
-import UserDao, { UserDto } from '../../application/dao/user-dao';
+import UserDao, { OwnerDto, UserDto } from '../../application/dao/user-dao';
 import Connection from '../database/connection';
 
 export default class UserDaoDatabase implements UserDao {
@@ -13,6 +13,17 @@ export default class UserDaoDatabase implements UserDao {
       id: result.id,
       name: result.name,
       phone: result.phone
+    };
+  }
+
+  async getOwnerById(id: string): Promise<OwnerDto> {
+    const query = 'SELECT * FROM public.owner_establishment WHERE id = $1';
+    const values = [id];
+    const [result] = await this.connection.query(query, values);
+    if (!result) throw new Error('User not found');
+    return {
+      id: result.id,
+      name: result.name
     };
   }
 }

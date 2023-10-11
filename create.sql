@@ -25,6 +25,7 @@ CREATE TABLE public.establishment (
   address varchar(255) NULL,
   category varchar(255) NULL,
   owner_establishment_id uuid NOT NULL,
+  max_capacity int4 NULL,
   CONSTRAINT fk_owner_establishment FOREIGN KEY (owner_establishment_id) REFERENCES public.owner_establishment (id)
 );
 

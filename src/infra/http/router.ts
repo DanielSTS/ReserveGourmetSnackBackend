@@ -62,7 +62,11 @@ export default class Router {
       reservationDao
     );
     const getUserInfo = new GetUserInfo(userDao, reservationDao);
-    const getOwnerInfo = new GetOwnerInfo(reservationDao);
+    const getOwnerInfo = new GetOwnerInfo(
+      userDao,
+      establishmentDao,
+      reservationDao
+    );
 
     http.on('post', '/login', function (params: any, body: any) {
       return login.execute(body);

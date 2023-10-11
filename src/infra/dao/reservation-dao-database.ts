@@ -32,6 +32,32 @@ export default class ReservationDaoDatabase implements ReservationDao {
     return reservations;
   }
 
+  async listByOwnerId(ownerId: string): Promise<ReservationDto[]> {
+    const query = `
+    SELECT r.id, r.user_id, u.name, r.datetime, r.num_people, r.observation
+    FROM public.reservation r
+    JOIN public.reserve_user u ON r.user_id = u.id
+    JOIN public.establishment e ON r.establishment_id = e.id
+    JOIN public.owner_establishment oe ON e.owner_establishment_id = oe.id
+    WHERE oe.id = $1
+  `;
+    const values = [ownerId];
+    const result = await this.connection.query(query, values);
+
+    const reservations: ReservationDto[] = result.map((row: any) => {
+      return {
+        id: row.id,
+        userId: row.user_id,
+        userName: row.name,
+        datetime: row.datetime,
+        numPeople: row.num_people,
+        observation: row.observation
+      };
+    });
+
+    return reservations;
+  }
+
   async listByEstablishmentId(
     establishmentId: string
   ): Promise<ReservationDto[]> {

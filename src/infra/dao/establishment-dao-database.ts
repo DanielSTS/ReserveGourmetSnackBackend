@@ -18,10 +18,33 @@ export default class EstablishmentDaoDatabase implements EstablishmentDao {
         openingHoursStart: row.opening_hours_start,
         openingHoursEnd: row.opening_hours_end,
         address: row.address,
-        category: row.category
+        category: row.category,
+        maxCapacity: row.max_capacity
       };
     });
 
     return establishments;
+  }
+
+  async getByOwnerId(id: string): Promise<EstablishmentDto> {
+    const query =
+      'SELECT * FROM public.establishment WHERE owner_establishment_id = $1';
+    const values = [id];
+    const [result] = await this.connection.query(query, values);
+
+    if (!result) throw new Error('Establishment not found');
+
+    const establishment: EstablishmentDto = {
+      id: result.id,
+      name: result.name,
+      phone: result.phone,
+      openingHoursStart: result.opening_hours_start,
+      openingHoursEnd: result.opening_hours_end,
+      address: result.address,
+      category: result.category,
+      maxCapacity: result.max_capacity
+    };
+
+    return establishment;
   }
 }

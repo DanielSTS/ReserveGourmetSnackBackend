@@ -10,7 +10,7 @@ export default class UpdateEstablishment {
   ) {}
 
   async execute(input: Input) {
-    const user = await this.userRepository.getOwnerByEmail(input.email);
+    const user = await this.userRepository.getOwnerById(input.ownerId);
 
     let establishment = await this.establishmentRepository
       .getByOwnerId(user.id)
@@ -18,24 +18,26 @@ export default class UpdateEstablishment {
 
     if (establishment) {
       establishment.update(
-        input.name,
+        input.establishmentName,
         input.phone,
-        input.openingHoursStart,
-        input.openingHoursEnd,
+        new Date(input.openingHoursStart),
+        new Date(input.openingHoursEnd),
         input.address,
-        input.category
+        input.category,
+        input.maxCapacity
       );
       await this.establishmentRepository.update(establishment);
     } else {
       establishment = new Establishment(
         user.id,
         randomUUID(),
-        input.name,
+        input.establishmentName,
         input.phone,
-        input.openingHoursStart,
-        input.openingHoursEnd,
+        new Date(input.openingHoursStart),
+        new Date(input.openingHoursEnd),
         input.address,
-        input.category
+        input.category,
+        input.maxCapacity
       );
       await this.establishmentRepository.save(establishment);
     }
@@ -43,9 +45,12 @@ export default class UpdateEstablishment {
 }
 
 type Input = {
-  email: string;
-  name: string;
+  ownerId: string;
+  establishmentName: string;
+  password: string;
   phone: string;
+  maxCapacity: number;
+  localization: string;
   openingHoursStart: Date;
   openingHoursEnd: Date;
   address: string;

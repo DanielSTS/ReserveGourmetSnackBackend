@@ -1,6 +1,6 @@
 import Login from '../src/application/use-cases/login';
 import User from '../src/domain/entities/user';
-import UserRepositoryInMemory from '../src/infra/repositories/in-memory/user-repository-in-memory';
+import UserRepositoryInMemory from '../src/infra/repositories/user-repository-in-memory';
 
 test('Deve fazer um login com credenciais válidas', async function () {
   const userRepository = new UserRepositoryInMemory();

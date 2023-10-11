@@ -11,9 +11,9 @@ export default class CreateUser {
     if (existingUser) {
       throw new Error('Email is already registered.');
     }
-    await this.userRepository.save(
-      await User.create(input.name, input.email, input.password)
-    );
+    const user = await User.create(input.name, input.email, input.password);
+    await this.userRepository.save(user);
+    return user.id;
   }
 }
 

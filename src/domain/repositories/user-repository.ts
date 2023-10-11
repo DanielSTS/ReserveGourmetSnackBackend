@@ -6,5 +6,6 @@ export default interface UserRepository {
   update(user: User): Promise<void>;
   getByEmail(email: string): Promise<User>;
   getOwnerByEmail(email: string): Promise<User>;
+  getOwnerById(id: string): Promise<User>;
   getById(id: string): Promise<User>;
 }

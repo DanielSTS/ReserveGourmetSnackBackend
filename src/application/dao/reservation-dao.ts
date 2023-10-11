@@ -12,5 +12,6 @@ export type ReservationDto = {
 
 export default interface ReservationDao {
   listByUserId(userId: string): Promise<ReservationDto[]>;
+  listByOwnerId(ownerId: string): Promise<ReservationDto[]>;
   listByEstablishmentId(establishmentId: string): Promise<ReservationDto[]>;
 }

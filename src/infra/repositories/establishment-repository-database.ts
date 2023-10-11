@@ -9,9 +9,9 @@ export default class EstablishmentRepositoryDatabase
   async save(establishment: Establishment): Promise<void> {
     const query = `
     INSERT INTO public.establishment 
-      (owner_establishment_id, id, name, phone, opening_hours_start, opening_hours_end, address, category)
+      (owner_establishment_id, id, name, phone, opening_hours_start, opening_hours_end, address, category, max_capacity)
     VALUES 
-      ($1, $2, $3, $4, $5, $6, $7, $8)`;
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
     const values = [
       establishment.ownerId,
       establishment.id,
@@ -20,13 +20,14 @@ export default class EstablishmentRepositoryDatabase
       establishment.openingHoursStart,
       establishment.openingHoursEnd,
       establishment.address,
-      establishment.category
+      establishment.category,
+      establishment.maxCapacity
     ];
     await this.connection.query(query, values);
   }
 
   async update(establishment: Establishment): Promise<void> {
-    const query = `UPDATE public.establishment SET name = $1, phone = $2, opening_hours_start = $3, opening_hours_end = $4, address = $5, category = $6 WHERE id = $7`;
+    const query = `UPDATE public.establishment SET name = $1, phone = $2, opening_hours_start = $3, opening_hours_end = $4, address = $5, category = $6, max_capacity =$7 WHERE id = $8`;
     const values = [
       establishment.name,
       establishment.phone,
@@ -34,26 +35,10 @@ export default class EstablishmentRepositoryDatabase
       establishment.openingHoursEnd,
       establishment.address,
       establishment.category,
+      establishment.maxCapacity,
       establishment.id
     ];
     await this.connection.query(query, values);
-  }
-
-  async getByEmail(email: string): Promise<Establishment> {
-    const query = 'SELECT * FROM public.establishment WHERE owner_email = $1';
-    const values = [email];
-    const [result] = await this.connection.query(query, values);
-    if (!result) throw new Error('Establishment not found');
-    return new Establishment(
-      result.owner_establishment_id,
-      result.id,
-      result.email,
-      result.name,
-      result.phone,
-      result.opening_hours_start,
-      result.opening_hours_end,
-      result.address
-    );
   }
 
   async getById(id: string): Promise<Establishment> {
@@ -64,12 +49,13 @@ export default class EstablishmentRepositoryDatabase
     return new Establishment(
       result.owner_establishment_id,
       result.id,
-      result.email,
       result.name,
       result.phone,
       result.opening_hours_start,
       result.opening_hours_end,
-      result.address
+      result.address,
+      result.category,
+      result.max_capacity
     );
   }
 
@@ -82,12 +68,13 @@ export default class EstablishmentRepositoryDatabase
     return new Establishment(
       result.owner_establishment_id,
       result.id,
-      result.email,
       result.name,
       result.phone,
       result.opening_hours_start,
       result.opening_hours_end,
-      result.address
+      result.address,
+      result.category,
+      result.max_capacity
     );
   }
 }

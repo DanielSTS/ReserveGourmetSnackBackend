@@ -1,5 +1,3 @@
-import Email from './email';
-
 export default class Reservation {
   private _datetime: Date;
   private _numPeople: number;
