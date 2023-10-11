@@ -44,7 +44,7 @@ export default class ReservationRepositoryDatabase
       result.user_id,
       result.establishment_id,
       result.id,
-      result.datetime,
+      new Date(result.datetime),
       result.num_people,
       result.observation
     );

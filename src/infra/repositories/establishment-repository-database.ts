@@ -27,7 +27,7 @@ export default class EstablishmentRepositoryDatabase
   }
 
   async update(establishment: Establishment): Promise<void> {
-    const query = `UPDATE public.establishment SET name = $1, phone = $2, opening_hours_start = $3, opening_hours_end = $4, address = $5, category = $6, max_capacity =$7 WHERE id = $8`;
+    const query = `UPDATE public.establishment SET name = $1, phone = $2, opening_hours_start = $3, opening_hours_end = $4, address = $5, category = $6, max_capacity = $7 WHERE id = $8`;
     const values = [
       establishment.name,
       establishment.phone,
@@ -51,8 +51,8 @@ export default class EstablishmentRepositoryDatabase
       result.id,
       result.name,
       result.phone,
-      result.opening_hours_start,
-      result.opening_hours_end,
+      new Date(result.opening_hours_start),
+      new Date(result.opening_hours_end),
       result.address,
       result.category,
       result.max_capacity
@@ -70,8 +70,8 @@ export default class EstablishmentRepositoryDatabase
       result.id,
       result.name,
       result.phone,
-      result.opening_hours_start,
-      result.opening_hours_end,
+      new Date(result.opening_hours_start),
+      new Date(result.opening_hours_end),
       result.address,
       result.category,
       result.max_capacity
