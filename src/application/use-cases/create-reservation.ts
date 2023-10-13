@@ -16,15 +16,18 @@ export default class CreateReservation {
     const establishment = await this.establishmentRepository.getById(
       input.establishmentId
     );
+    const userOwner = await this.userRepository.getOwnerById(
+      establishment.ownerId
+    );
     const reservation = establishment.createReservation(
       user.id,
-      input.datetime,
+      new Date(input.datetime),
       input.numPeople,
       input.observation
     );
     await this.reservationRepository.save(reservation);
     this.sendEmailService.sendEmail(
-      user.email.value,
+      userOwner.email.value,
       'Nova reserva',
       `Uma nova reserva foi feita para o estabelecimento ${establishment.name}.`
     );

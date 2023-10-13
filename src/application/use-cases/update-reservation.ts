@@ -14,7 +14,7 @@ export default class UpdateReservation {
     );
     const updatedeReservation = establishment.updateReservartion(
       reservation,
-      input.datetime,
+      new Date(input.datetime),
       input.numPeople,
       input.observation
     );

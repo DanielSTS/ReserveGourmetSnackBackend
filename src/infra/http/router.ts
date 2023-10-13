@@ -16,6 +16,8 @@ import GetUserInfo from '../../application/use-cases/get-user-info';
 import GetOwnerInfo from '../../application/use-cases/get-owner-info';
 import LoginOwner from '../../application/use-cases/login-owner';
 import { NodeMailerService } from '../email/nodemailer';
+import CreateReview from '../../application/use-cases/create-review';
+import CreateComment from '../../application/use-cases/create-comment';
 
 export default class Router {
   constructor(
@@ -28,6 +30,9 @@ export default class Router {
       repositoryFactory.createEstablishmentRepository();
     const reservationRepository =
       repositoryFactory.createReservationRepository();
+
+    const reviewRepository = repositoryFactory.createReviewRepository();
+    const commentRepository = repositoryFactory.createCommentRepository();
 
     const login = new Login(userRepository);
     const loginOwner = new LoginOwner(userRepository);
@@ -70,6 +75,17 @@ export default class Router {
       userDao,
       establishmentDao,
       reservationDao
+    );
+
+    const createReview = new CreateReview(
+      establishmentRepository,
+      userRepository,
+      reviewRepository
+    );
+    const createComment = new CreateComment(
+      establishmentRepository,
+      userRepository,
+      commentRepository
     );
 
     http.on('post', '/login', function (params: any, body: any) {
@@ -135,5 +151,13 @@ export default class Router {
         return getReservationByEstablishment.execute(params);
       }
     );
+
+    http.on('post', '/reviews', function (params: any, body: any) {
+      return createReview.execute(body);
+    });
+
+    http.on('post', '/commetns', function (params: any, body: any) {
+      return createComment.execute(body);
+    });
   }
 }

@@ -16,7 +16,7 @@ export default class ExpressAdapter implements HttpServer {
   on(method: string, url: string, callback: Function): void {
     this.app[method](
       url,
-      AuthenticateMiddleware,
+      // AuthenticateMiddleware,
       async function (req: any, res: any) {
         try {
           const output = await callback(req.params, req.body);

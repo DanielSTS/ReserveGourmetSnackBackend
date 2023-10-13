@@ -7,6 +7,8 @@ export class NodeMailerService implements SendEmailService {
   constructor() {
     this.transporter = nodemailer.createTransport({
       service: 'gmail',
+      secure: true,
+      port: 465,
       auth: {
         user: process.env.MAIL_USERNAME,
         pass: process.env.MAIL_PASSWORD
@@ -21,13 +23,13 @@ export class NodeMailerService implements SendEmailService {
   ): Promise<void> {
     try {
       await this.transporter.sendMail({
-        from: process.env.MAIL_FROM_EMAIL,
+        from: process.env.MAIL_USERNAME,
         to: recipientEmail,
         subject,
         text: message
       });
     } catch (error) {
-      throw new Error('Erro ao enviar o email');
+      throw new Error(`Error to send email {error}`);
     }
   }
 }

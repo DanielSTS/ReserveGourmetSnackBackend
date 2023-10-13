@@ -50,12 +50,16 @@ CREATE TABLE public.faq (
 
 -- Definição da tabela public.comment
 CREATE TABLE public.comment (
+  establishment_id uuid NOT NULL,
+  user_id uuid NOT NULL,
   id uuid PRIMARY KEY,
   "text" varchar(255) NULL
 );
 
 -- Definição da tabela public.review
 CREATE TABLE public.review (
+  establishment_id uuid NOT NULL,
+  user_id uuid NOT NULL,
   id uuid PRIMARY KEY,
   rating float8 NULL,
   "comment" varchar(255) NULL
