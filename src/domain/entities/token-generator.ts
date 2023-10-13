@@ -2,22 +2,21 @@ import { sign, verify } from 'jsonwebtoken';
 import User from './user';
 
 export default class TokenGenerator {
-  EXPIRES_IN = 1000000;
+  static EXPIRES_IN = 1000000;
+  static key = 'seu secret';
 
-  constructor(readonly key: string) {}
-
-  sign(user: User, date: Date) {
+  static sign(user: User, date: Date) {
     return sign(
       {
         email: user.email.value,
         iat: date.getTime(),
-        expiresIn: this.EXPIRES_IN
+        expiresIn: TokenGenerator.EXPIRES_IN
       },
-      this.key
+      TokenGenerator.key
     );
   }
 
-  verify(token: string): any {
-    return verify(token, this.key);
+  static verify(token: string): any {
+    return verify(token, TokenGenerator.key);
   }
 }

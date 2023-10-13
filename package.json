@@ -18,6 +18,7 @@
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.2",
     "@types/jsonwebtoken": "^9.0.2",
+    "@types/nodemailer": "^6.4.11",
     "@types/sequelize": "^4.28.16",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
@@ -36,6 +37,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
+    "nodemailer": "^6.9.6",
     "pg-promise": "^11.5.4"
   }
 }

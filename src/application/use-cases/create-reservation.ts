@@ -1,12 +1,14 @@
 import EstablishmentRepository from '../../domain/repositories/establishment-repository';
 import ReservationRepository from '../../domain/repositories/reservation-repository';
 import UserRepository from '../../domain/repositories/user-repository';
+import SendEmailService from '../send-email-service';
 
 export default class CreateReservation {
   constructor(
     private readonly establishmentRepository: EstablishmentRepository,
     private readonly userRepository: UserRepository,
-    private readonly reservationRepository: ReservationRepository
+    private readonly reservationRepository: ReservationRepository,
+    private readonly sendEmailService: SendEmailService
   ) {}
 
   async execute(input: Input) {
@@ -21,6 +23,11 @@ export default class CreateReservation {
       input.observation
     );
     await this.reservationRepository.save(reservation);
+    this.sendEmailService.sendEmail(
+      user.email.value,
+      'Nova reserva',
+      `Uma nova reserva foi feita para o estabelecimento ${establishment.name}.`
+    );
   }
 }
 

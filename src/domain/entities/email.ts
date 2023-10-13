@@ -12,11 +12,4 @@ export default class Email {
       throw new Error('Invalid email.');
     }
   }
-
-  isEqual(other: any): boolean {
-    if (other instanceof Email) {
-      return this.value === other.value;
-    }
-    return false;
-  }
 }

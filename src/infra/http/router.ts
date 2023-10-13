@@ -15,6 +15,7 @@ import CancelReservation from '../../application/use-cases/cancel-reservation';
 import GetUserInfo from '../../application/use-cases/get-user-info';
 import GetOwnerInfo from '../../application/use-cases/get-owner-info';
 import LoginOwner from '../../application/use-cases/login-owner';
+import { NodeMailerService } from '../email/nodemailer';
 
 export default class Router {
   constructor(
@@ -37,10 +38,13 @@ export default class Router {
       userRepository,
       establishmentRepository
     );
+
+    const nodeMailer = new NodeMailerService();
     const createReservation = new CreateReservation(
       establishmentRepository,
       userRepository,
-      reservationRepository
+      reservationRepository,
+      nodeMailer
     );
 
     const updateReservation = new UpdateReservation(

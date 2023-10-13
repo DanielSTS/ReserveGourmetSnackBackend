@@ -7,9 +7,8 @@ export default class Login {
   async execute(input: Input): Promise<Output> {
     const user = await this.userRepository.getByEmail(input.email);
     if (await user.validatePassword(input.password)) {
-      const tokenGenerator = new TokenGenerator('secret');
       return {
-        token: tokenGenerator.sign(user, new Date()),
+        token: TokenGenerator.sign(user, new Date()),
         id: user.id
       };
     } else {
