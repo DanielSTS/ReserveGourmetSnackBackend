@@ -7,11 +7,11 @@ export default class CommentRepositoryDatabase implements CommentRepository {
   async save(comment: Comment): Promise<void> {
     const query = `
     INSERT INTO public.comment 
-      (establishment_id, user_id, id, text)
+      (reservation_id, user_id, id, text)
     VALUES 
       ($1, $2, $3, $4)`;
     const values = [
-      comment.establishmentId,
+      comment.reservationId,
       comment.userId,
       comment.id,
       comment.text
