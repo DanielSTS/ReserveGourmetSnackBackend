@@ -85,11 +85,11 @@ test('Deve criar um comentário', async () => {
 
   await reservationRepository.save(reservation);
 
-  await expect(async () => {
+  expect(
     await createComment.execute({
       establishmentId,
       userId: user.id,
       comment: 'comment'
-    });
-  }).not.toThrow();
+    })
+  ).toBe('sucess');
 });

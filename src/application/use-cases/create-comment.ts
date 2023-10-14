@@ -20,6 +20,7 @@ export default class CreateComment {
       input.comment
     );
     await this.commentRepository.save(comment);
+    return 'sucess';
   }
 }
 

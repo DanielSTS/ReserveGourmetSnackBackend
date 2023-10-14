@@ -14,6 +14,7 @@ export default class CancelReservation {
     );
     establishment.cancelReservation(reservation);
     await this.reservationRepository.delete(reservation);
+    return 'sucess';
   }
 }
 

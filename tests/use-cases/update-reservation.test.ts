@@ -81,12 +81,18 @@ test('Deve atualizar uma reserva', async () => {
   );
   await reservationRepository.save(reservation);
 
-  await expect(async () => {
-    await updateReservation.execute({
-      id: reservationId,
-      datetime: reservationTime,
-      numPeople: 4,
-      observation: 'new observation'
-    });
-  }).not.toThrow();
+  const result = await updateReservation.execute({
+    id: reservationId,
+    datetime: reservationTime,
+    numPeople: 4,
+    observation: 'new observation'
+  });
+
+  expect(result).toEqual('sucess');
+
+  const output = await reservationRepository.getById(reservationId);
+
+  expect(output.datetime).toEqual(reservationTime);
+  expect(output.numPeople).toEqual(4);
+  expect(output.observation).toEqual('new observation');
 });

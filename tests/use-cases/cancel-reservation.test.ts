@@ -80,7 +80,6 @@ test('Deve cancelar uma reserva', async () => {
     'observation'
   );
   await reservationRepository.save(reservation);
-  await expect(async () => {
-    await cancelReservation.execute({ id: reservationId });
-  }).not.toThrow();
+
+  expect(await cancelReservation.execute({ id: reservationId })).toBe('sucess');
 });

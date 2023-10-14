@@ -11,6 +11,8 @@ export default class UpdateEstablishment {
 
   async execute(input: Input) {
     const user = await this.userRepository.getOwnerById(input.ownerId);
+    user.update(input.ownerName, input.password);
+    await this.userRepository.saveOwner(user);
 
     let establishment = await this.establishmentRepository
       .getByOwnerId(user.id)
@@ -42,11 +44,13 @@ export default class UpdateEstablishment {
       );
       await this.establishmentRepository.save(establishment);
     }
+    return establishment.id;
   }
 }
 
 type Input = {
   ownerId: string;
+  ownerName: string;
   establishmentName: string;
   password: string;
   phone: string;

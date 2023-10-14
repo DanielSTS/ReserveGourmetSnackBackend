@@ -80,7 +80,7 @@ test('Deve criar uma reserva', async () => {
   reservationTime.setHours(13);
   reservationTime.setMinutes(45);
 
-  await createReservation.execute({
+  const result = await createReservation.execute({
     establishmentId,
     userId: user.id,
     datetime: reservationTime,
@@ -88,9 +88,14 @@ test('Deve criar uma reserva', async () => {
     observation: 'observation'
   });
 
+  expect(result).toBe('sucess');
+
   expect(sendEmailService.sendEmail).toHaveBeenCalledWith(
     'user.owner.reservation@example.com',
     'Nova reserva',
     'Uma nova reserva foi feita para o estabelecimento Acme Hotel.'
   );
+
+  const output = await reservationRepository.getById(result);
+  expect(output).toBeDefined();
 });

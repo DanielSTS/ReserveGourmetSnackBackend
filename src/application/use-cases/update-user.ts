@@ -7,6 +7,7 @@ export default class UpdateUser {
     const user = await this.userRepository.getById(input.id);
     await user.update(input.name, input.password, input.phone);
     await this.userRepository.update(user);
+    return 'sucess';
   }
 }
 

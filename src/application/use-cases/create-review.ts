@@ -21,6 +21,7 @@ export default class CreateReview {
       input.comment
     );
     await this.reviewRepository.save(review);
+    return 'sucess';
   }
 }
 

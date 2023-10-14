@@ -31,6 +31,8 @@ export default class CreateReservation {
       'Nova reserva',
       `Uma nova reserva foi feita para o estabelecimento ${establishment.name}.`
     );
+    await this.reservationRepository.save(reservation);
+    return reservation.id;
   }
 }
 

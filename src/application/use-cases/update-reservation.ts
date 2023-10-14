@@ -19,6 +19,7 @@ export default class UpdateReservation {
       input.observation
     );
     await this.reservationRepository.update(updatedeReservation);
+    return 'sucess';
   }
 }
 

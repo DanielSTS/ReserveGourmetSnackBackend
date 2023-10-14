@@ -18,7 +18,7 @@ afterAll(async () => {
   await instance.close();
 });
 
-test('Deve criar um review', async () => {
+test('Deve criar uma avaliação', async () => {
   const establishmentRepository = new EstablishmentRepositoryDatabase(instance);
   const userRepository = new UserRepositoryDatabase(instance);
   const reviewRepository = new ReviewRepositoryDatabase(instance);
@@ -67,12 +67,12 @@ test('Deve criar um review', async () => {
 
   await establishmentRepository.save(establishment);
 
-  await expect(async () => {
+  expect(
     await createReview.execute({
       establishmentId,
       userId: user.id,
       rating: 4,
       comment: 'comment'
-    });
-  }).not.toThrow();
+    })
+  ).toBe('sucess');
 });

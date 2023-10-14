@@ -44,7 +44,7 @@ export default class User {
     return this._password.validate(password);
   }
 
-  async update(name: string, password: string, phone: string) {
+  async update(name: string, password: string, phone?: string) {
     this._name = name;
     this._password = await BcryptPassword.create(password);
     this._phone = phone;
