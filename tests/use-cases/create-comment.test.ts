@@ -87,7 +87,7 @@ test('Deve criar um comentário', async () => {
 
   expect(
     await createComment.execute({
-      establishmentId,
+      reservationId: establishmentId,
       userId: user.id,
       comment: 'comment'
     })

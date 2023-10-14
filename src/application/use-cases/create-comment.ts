@@ -1,20 +1,20 @@
 import Comment from '../../domain/entities/comment';
 import CommentRepository from '../../domain/repositories/comment-repository';
-import EstablishmentRepository from '../../domain/repositories/establishment-repository';
+import ReservationRepository from '../../domain/repositories/reservation-repository';
 import UserRepository from '../../domain/repositories/user-repository';
 import { randomUUID } from 'crypto';
 
 export default class CreateComment {
   constructor(
-    private readonly establishmentRepository: EstablishmentRepository,
+    private readonly reservationRepository: ReservationRepository,
     private readonly userRepository: UserRepository,
     private readonly commentRepository: CommentRepository
   ) {}
   async execute(input: Input) {
     await this.userRepository.getById(input.userId);
-    await this.establishmentRepository.getById(input.establishmentId);
+    await this.reservationRepository.getById(input.reservationId);
     const comment = new Comment(
-      input.establishmentId,
+      input.reservationId,
       input.userId,
       randomUUID(),
       input.comment
@@ -25,7 +25,7 @@ export default class CreateComment {
 }
 
 type Input = {
-  establishmentId: string;
+  reservationId: string;
   userId: string;
   comment: string;
 };

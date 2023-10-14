@@ -83,7 +83,7 @@ export default class Router {
       reviewRepository
     );
     const createComment = new CreateComment(
-      establishmentRepository,
+      reservationRepository,
       userRepository,
       commentRepository
     );
