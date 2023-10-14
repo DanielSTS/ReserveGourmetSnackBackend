@@ -8,6 +8,7 @@ export type ReservationDto = {
   datetime: Date;
   numPeople: number;
   observation: string;
+  comment?: string;
 };
 
 export default interface ReservationDao {

@@ -10,6 +10,14 @@ export type EstablishmentDto = {
   maxCapacity: number;
   enabled: boolean;
   rating: number;
+  reviews: ReviewDto[];
+};
+
+export type ReviewDto = {
+  establishmentId: string;
+  id: string;
+  rating: number;
+  comment: string;
 };
 
 export default interface EstablishmentDao {

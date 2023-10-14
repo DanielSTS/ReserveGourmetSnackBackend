@@ -2,6 +2,8 @@ import UserRepository from '../../domain/repositories/user-repository';
 import User from '../../domain/entities/user';
 
 export default class UserRepositoryInMemory implements UserRepository {
+  private users: User[] = [];
+
   saveOwner(user: User): Promise<void> {
     throw new Error('Method not implemented.');
   }
@@ -14,10 +16,14 @@ export default class UserRepositoryInMemory implements UserRepository {
   getOwnerById(id: string): Promise<User> {
     throw new Error('Method not implemented.');
   }
-  getById(id: string): Promise<User> {
-    throw new Error('Method not implemented.');
+
+  async getById(id: string): Promise<User> {
+    const user = this.users.find(user => user.id === id);
+    if (!user) {
+      throw new Error('User not found.');
+    }
+    return user;
   }
-  private users: User[] = [];
 
   async save(user: User): Promise<void> {
     this.users.push(user);

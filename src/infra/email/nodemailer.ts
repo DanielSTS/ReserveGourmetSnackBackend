@@ -29,7 +29,7 @@ export class NodeMailerService implements SendEmailService {
         text: message
       });
     } catch (error) {
-      throw new Error(`Error to send email {error}`);
+      throw new Error(`Error to send email ${error}`);
     }
   }
 }

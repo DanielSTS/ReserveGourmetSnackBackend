@@ -20,7 +20,7 @@ export default class CreateReview {
       input.rating,
       input.comment
     );
-    this.reviewRepository.save(review);
+    await this.reviewRepository.save(review);
   }
 }
 

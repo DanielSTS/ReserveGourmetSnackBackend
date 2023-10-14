@@ -24,7 +24,7 @@ export default class Reservation {
     return this;
   }
 
-  validate(numPeople: number) {
+  private validate(numPeople: number) {
     if (numPeople < 1) {
       throw new Error('Invalid numPeople');
     }

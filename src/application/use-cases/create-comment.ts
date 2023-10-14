@@ -19,7 +19,7 @@ export default class CreateComment {
       randomUUID(),
       input.comment
     );
-    this.commentRepository.save(comment);
+    await this.commentRepository.save(comment);
   }
 }
 

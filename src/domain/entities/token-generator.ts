@@ -3,7 +3,7 @@ import User from './user';
 
 export default class TokenGenerator {
   static EXPIRES_IN = 1000000;
-  static key = process.env.TOKEN_KEY as string;
+  static KEY = (process.env.TOKEN_KEY as string) ?? 'secret';
 
   static sign(user: User, date: Date) {
     return sign(
@@ -12,11 +12,11 @@ export default class TokenGenerator {
         iat: date.getTime(),
         expiresIn: TokenGenerator.EXPIRES_IN
       },
-      TokenGenerator.key
+      TokenGenerator.KEY
     );
   }
 
   static verify(token: string): any {
-    return verify(token, TokenGenerator.key);
+    return verify(token, TokenGenerator.KEY);
   }
 }

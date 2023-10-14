@@ -62,9 +62,10 @@ export default class ReservationDaoDatabase implements ReservationDao {
     establishmentId: string
   ): Promise<ReservationDto[]> {
     const query = `
-      SELECT r.id, r.user_id, u.name, r.datetime, r.num_people, r.observation
+      SELECT r.id, r.user_id, u.name, r.datetime, r.num_people, r.observation, c.comment
       FROM public.reservation r
       JOIN public.reserve_user u ON r.user_id = u.id
+      LEFT JOIN public.comment c ON r.id = c.reservation_id
       WHERE r.establishment_id = $1
     `;
     const values = [establishmentId];
@@ -77,7 +78,8 @@ export default class ReservationDaoDatabase implements ReservationDao {
         userName: row.name,
         datetime: row.datetime,
         numPeople: row.num_people,
-        observation: row.observation
+        observation: row.observation,
+        comment: row.comment
       };
     });
 
