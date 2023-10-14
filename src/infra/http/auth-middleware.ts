@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import TokenGenerator from '../../domain/entities/token-generator';
 
 interface CustomRequest extends Request {
-  userId?: string;
+  userID?: string;
 }
 
 export default function AuthenticateMiddleware(
@@ -20,7 +20,7 @@ export default function AuthenticateMiddleware(
 
   try {
     const decoded = TokenGenerator.verify(token);
-    req.userId = decoded;
+    req.userID = decoded;
     next();
   } catch (err) {
     return res.status(403).json({ message: 'Token authentication failed' });

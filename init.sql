@@ -42,6 +42,13 @@ CREATE TABLE public.reservation (
   CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES public.reserve_user (id)
 );
 
+-- Definição da tabela public.faq
+CREATE TABLE public.faq (
+  id uuid PRIMARY KEY,
+  question varchar(255) NOT NULL,
+  answer varchar(255) NOT NULL
+);
+
 -- Crie a tabela public.comment
 CREATE TABLE public.comment (
   reservation_id uuid NOT NULL,
@@ -127,3 +134,10 @@ VALUES
   ('09da6806-52db-3bf3-af29-99e199c05e23', 'f4b6e363-5f6d-3da9-a3a5-3f1619730554', '8301606a-72c6-351f-92f1-5e67b100d0db', 2.5, 'Review 4'),
   ('32f9569e-2e7d-31f7-84cd-45b9f773400d', '09da6806-52db-3bf3-af29-99e199c05e23', 'f4b6e363-5f6d-3da9-a3a5-3f1619730554', 4.0, 'Review 5');
 
+-- Atualizar senhas na tabela public.owner_establishment
+UPDATE public.owner_establishment
+SET "password" = '{"value":"$2b$10$bQ2pCbatGNZQ98YFgo0m8ObyJPoM5GcI1kqtEnK.3wZ7Hwh8OUeU2","salt":10}';
+
+-- Atualizar senhas na tabela public.reserve_user
+UPDATE public.reserve_user
+SET "password" = '{"value":"$2b$10$bQ2pCbatGNZQ98YFgo0m8ObyJPoM5GcI1kqtEnK.3wZ7Hwh8OUeU2","salt":10}';

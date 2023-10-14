@@ -1,5 +1,6 @@
+export type fn = (params: any, body: any) => Promise<any>;
+
 export default interface HttpServer {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  on(method: string, url: string, callback: Function): void;
+  on(method: string, url: string, callback: fn, auth?: boolean): void;
   listen(port: number): void;
 }

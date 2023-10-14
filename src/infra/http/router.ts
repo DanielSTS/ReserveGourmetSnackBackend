@@ -88,29 +88,49 @@ export default class Router {
       commentRepository
     );
 
-    http.on('post', '/login', function (params: any, body: any) {
-      return login.execute(body);
-    });
+    http.on(
+      'post',
+      '/login',
+      function (params: any, body: any) {
+        return login.execute(body);
+      },
+      false
+    );
 
-    http.on('post', '/login-owner', function (params: any, body: any) {
-      return loginOwner.execute(body);
-    });
+    http.on(
+      'post',
+      '/login-owner',
+      function (params: any, body: any) {
+        return loginOwner.execute(body);
+      },
+      false
+    );
 
     http.on('get', '/users/:id', function (params: any, body: any) {
       return getUserInfo.execute(params);
     });
 
-    http.on('post', '/users', function (params: any, body: any) {
-      return createUser.execute(body);
-    });
+    http.on(
+      'post',
+      '/users',
+      function (params: any, body: any) {
+        return createUser.execute(body);
+      },
+      false
+    );
 
     http.on('put', '/users', function (params: any, body: any) {
       return updateUser.execute(body);
     });
 
-    http.on('post', '/owners', function (params: any, body: any) {
-      return createUserOwner.execute(body);
-    });
+    http.on(
+      'post',
+      '/owners',
+      function (params: any, body: any) {
+        return createUserOwner.execute(body);
+      },
+      false
+    );
 
     http.on('get', '/owners/:id', function (params: any, body: any) {
       return getOwnerInfo.execute(params);
