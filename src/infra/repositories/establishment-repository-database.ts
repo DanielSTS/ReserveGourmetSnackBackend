@@ -49,7 +49,7 @@ export default class EstablishmentRepositoryDatabase
     const [result] = await this.connection.query(query, values);
     if (!result) throw new Error('Establishment not found');
     return new Establishment(
-      result.ownerestablishment_id,
+      result.owner_establishment_id,
       result.id,
       result.name,
       result.phone,
