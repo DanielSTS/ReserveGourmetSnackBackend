@@ -49,7 +49,7 @@ export default class EstablishmentDaoDatabase implements EstablishmentDao {
         maxCapacity: row.max_capacity,
         enabled: row.enabled,
         reviews: reviews,
-        rating: result.rating
+        rating: row.rating
       };
     });
 

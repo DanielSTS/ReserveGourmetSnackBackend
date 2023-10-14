@@ -12,7 +12,7 @@ export default class UpdateEstablishment {
   async execute(input: Input) {
     const user = await this.userRepository.getOwnerById(input.ownerId);
     user.update(input.ownerName, input.password);
-    await this.userRepository.saveOwner(user);
+    await this.userRepository.updateOwner(user);
 
     let establishment = await this.establishmentRepository
       .getByOwnerId(user.id)

@@ -34,6 +34,15 @@ export default class UserRepositoryDatabase implements UserRepository {
     await this.connection.query(query, values);
   }
 
+  async updateOwner(user: User): Promise<void> {
+    const query = `
+    UPDATE public.owner_establishment 
+    SET name = $1, password = $2
+    WHERE email = $3`;
+    const values = [user.name, user.password, user.email.value];
+    await this.connection.query(query, values);
+  }
+
   async getByEmail(email: string): Promise<User> {
     const query = 'SELECT * FROM public.reserve_user WHERE email = $1';
     const values = [email];

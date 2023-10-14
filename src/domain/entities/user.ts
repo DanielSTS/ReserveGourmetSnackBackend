@@ -12,9 +12,7 @@ export default class User {
   ) {}
 
   static async create(name: string, email: string, password: string) {
-    if (password?.length < 8) {
-      throw new Error('Password must have at least 8 characters.');
-    }
+    User.validateStringPassword(password);
     return new User(
       randomUUID(),
       name,
@@ -40,11 +38,17 @@ export default class User {
     );
   }
 
+  static validateStringPassword(password: string) {
+    if (!password || password?.length === 0 || password?.length < 8) {
+      throw new Error('Password must have at least 8 characters.');
+    }
+  }
   validatePassword(password: string) {
     return this._password.validate(password);
   }
 
   async update(name: string, password: string, phone?: string) {
+    User.validateStringPassword(password);
     this._name = name;
     this._password = await BcryptPassword.create(password);
     this._phone = phone;
