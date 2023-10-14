@@ -1,4 +1,4 @@
-import Review from '../src/domain/entities/review';
+import Review from '../../src/domain/entities/review';
 
 describe('Review', () => {
   test('should create a new review with valid rating', () => {

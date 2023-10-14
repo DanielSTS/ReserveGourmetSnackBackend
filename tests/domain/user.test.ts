@@ -1,6 +1,6 @@
-import BcryptPassword from '../src/domain/entities/bcrypt-password';
-import Email from '../src/domain/entities/email';
-import User from '../src/domain/entities/user';
+import BcryptPassword from '../../src/domain/entities/bcrypt-password';
+import Email from '../../src/domain/entities/email';
+import User from '../../src/domain/entities/user';
 import bcrypt from 'bcrypt';
 
 describe('User', () => {

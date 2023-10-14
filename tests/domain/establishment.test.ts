@@ -1,4 +1,4 @@
-import Establishment from '../src/domain/entities/establishment';
+import Establishment from '../../src/domain/entities/establishment';
 
 describe('Establishment', () => {
   const ownerId = 'owner-id';

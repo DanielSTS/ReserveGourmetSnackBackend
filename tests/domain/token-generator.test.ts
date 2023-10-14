@@ -1,6 +1,6 @@
 import { sign, verify } from 'jsonwebtoken';
-import User from '../src/domain/entities/user';
-import TokenGenerator from '../src/domain/entities/token-generator';
+import User from '../../src/domain/entities/user';
+import TokenGenerator from '../../src/domain/entities/token-generator';
 
 jest.mock('jsonwebtoken', () => ({
   sign: jest.fn(),

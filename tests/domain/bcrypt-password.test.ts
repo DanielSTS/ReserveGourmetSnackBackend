@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import BcryptPassword from '../src/domain/entities/bcrypt-password';
+import BcryptPassword from '../../src/domain/entities/bcrypt-password';
 
 describe('BcryptPassword', () => {
   let bcryptPassword: BcryptPassword;

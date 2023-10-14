@@ -26,7 +26,7 @@ CREATE TABLE public.establishment (
   category varchar(255) NULL,
   owner_establishment_id uuid NOT NULL,
   max_capacity int4 NULL,
-  "enabled" boolean NOT NULL DEFAULT true
+  "enabled" boolean NOT NULL DEFAULT true,
   CONSTRAINT fk_owner_establishment FOREIGN KEY (owner_establishment_id) REFERENCES public.owner_establishment (id)
 );
 

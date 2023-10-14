@@ -51,7 +51,6 @@ type Input = {
   password: string;
   phone: string;
   maxCapacity: number;
-  localization: string;
   openingHoursStart: Date;
   openingHoursEnd: Date;
   address: string;

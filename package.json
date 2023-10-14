@@ -7,7 +7,7 @@
     "dev": "tsx watch src/main.ts",
     "build": "tsup src",
     "start": "node dist/main.js",
-    "test": "jest",
+    "test": "jest --setupFiles dotenv/config",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "eslint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --fix"
   },

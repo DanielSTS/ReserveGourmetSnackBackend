@@ -26,7 +26,7 @@ export default class CreateReservation {
       input.observation
     );
     await this.reservationRepository.save(reservation);
-    this.sendEmailService.sendEmail(
+    await this.sendEmailService.sendEmail(
       userOwner.email.value,
       'Nova reserva',
       `Uma nova reserva foi feita para o estabelecimento ${establishment.name}.`

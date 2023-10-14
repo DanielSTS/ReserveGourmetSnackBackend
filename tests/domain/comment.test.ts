@@ -1,4 +1,4 @@
-import Comment from '../src/domain/entities/comment';
+import Comment from '../../src/domain/entities/comment';
 describe('Comment', () => {
   const establishmentId = 'establishment-id';
   const userId = 'user-id';

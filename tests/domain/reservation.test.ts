@@ -1,4 +1,4 @@
-import Reservation from '../src/domain/entities/reservation';
+import Reservation from '../../src/domain/entities/reservation';
 
 describe('Reservation', () => {
   const userId = 'user-id';
