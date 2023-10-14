@@ -37,7 +37,8 @@ export default class UpdateEstablishment {
         new Date(input.openingHoursEnd),
         input.address,
         input.category,
-        input.maxCapacity
+        input.maxCapacity,
+        input.enabled
       );
       await this.establishmentRepository.save(establishment);
     }
@@ -55,4 +56,5 @@ type Input = {
   openingHoursEnd: Date;
   address: string;
   category: string;
+  enabled: boolean;
 };

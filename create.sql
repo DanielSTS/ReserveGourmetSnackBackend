@@ -26,6 +26,7 @@ CREATE TABLE public.establishment (
   category varchar(255) NULL,
   owner_establishment_id uuid NOT NULL,
   max_capacity int4 NULL,
+  "enabled" boolean NOT NULL DEFAULT true
   CONSTRAINT fk_owner_establishment FOREIGN KEY (owner_establishment_id) REFERENCES public.owner_establishment (id)
 );
 
@@ -53,7 +54,9 @@ CREATE TABLE public.comment (
   establishment_id uuid NOT NULL,
   user_id uuid NOT NULL,
   id uuid PRIMARY KEY,
-  "text" varchar(255) NULL
+  "text" varchar(255) NULL,
+  CONSTRAINT fk_comment_establishment FOREIGN KEY (establishment_id) REFERENCES public.establishment (id),
+  CONSTRAINT fk_comment_user FOREIGN KEY (user_id) REFERENCES public.reserve_user (id)
 );
 
 -- Definição da tabela public.review
@@ -62,5 +65,7 @@ CREATE TABLE public.review (
   user_id uuid NOT NULL,
   id uuid PRIMARY KEY,
   rating float8 NULL,
-  "comment" varchar(255) NULL
+  "comment" varchar(255) NULL,
+  CONSTRAINT fk_review_establishment FOREIGN KEY (establishment_id) REFERENCES public.establishment (id),
+  CONSTRAINT fk_review_user FOREIGN KEY (user_id) REFERENCES public.reserve_user (id)
 );

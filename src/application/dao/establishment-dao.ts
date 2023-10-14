@@ -8,6 +8,8 @@ export type EstablishmentDto = {
   address: string;
   category: string;
   maxCapacity: number;
+  enabled: boolean;
+  rating: number;
 };
 
 export default interface EstablishmentDao {

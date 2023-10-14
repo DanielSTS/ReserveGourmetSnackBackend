@@ -2,13 +2,14 @@ import Reservation from './reservation';
 import { randomUUID } from 'crypto';
 
 export default class Establishment {
-  name: string;
-  phone: string;
-  openingHoursStart: Date;
-  openingHoursEnd: Date;
-  address: string;
-  category: string;
-  maxCapacity: number;
+  private _name: string;
+  private _phone: string;
+  private _openingHoursStart: Date;
+  private _openingHoursEnd: Date;
+  private _address: string;
+  private _category: string;
+  private _maxCapacity: number;
+  private _enabled: boolean;
 
   constructor(
     readonly ownerId: string,
@@ -19,16 +20,18 @@ export default class Establishment {
     openingHoursEnd: Date,
     address: string,
     category: string,
-    maxCapacity: number
+    maxCapacity: number,
+    enabled: boolean
   ) {
     this.validateHours(openingHoursStart, openingHoursEnd);
-    this.name = name;
-    this.phone = phone;
-    this.openingHoursStart = openingHoursStart;
-    this.openingHoursEnd = openingHoursEnd;
-    this.address = address;
-    this.category = category;
-    this.maxCapacity = maxCapacity;
+    this._name = name;
+    this._phone = phone;
+    this._openingHoursStart = openingHoursStart;
+    this._openingHoursEnd = openingHoursEnd;
+    this._address = address;
+    this._category = category;
+    this._maxCapacity = maxCapacity;
+    this._enabled = enabled;
   }
 
   update(
@@ -41,13 +44,13 @@ export default class Establishment {
     maxCapacity: number
   ) {
     this.validateHours(openingHoursStart, openingHoursEnd);
-    this.name = name;
-    this.phone = phone;
-    this.openingHoursStart = openingHoursStart;
-    this.openingHoursEnd = openingHoursEnd;
-    this.address = address;
-    this.category = category;
-    this.maxCapacity = maxCapacity;
+    this._name = name;
+    this._phone = phone;
+    this._openingHoursStart = openingHoursStart;
+    this._openingHoursEnd = openingHoursEnd;
+    this._address = address;
+    this._category = category;
+    this._maxCapacity = maxCapacity;
   }
 
   createReservation(
@@ -88,8 +91,8 @@ export default class Establishment {
 
   validateReservationHours(datetime: Date) {
     const time = datetime.getTime();
-    const openingHoursStart = new Date(this.openingHoursStart.getTime());
-    const openingHoursEnd = new Date(this.openingHoursEnd.getTime());
+    const openingHoursStart = new Date(this._openingHoursStart.getTime());
+    const openingHoursEnd = new Date(this._openingHoursEnd.getTime());
 
     openingHoursStart.setFullYear(
       datetime.getFullYear(),
@@ -122,5 +125,37 @@ export default class Establishment {
     ) {
       throw new Error('Invalid hours');
     }
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  get phone() {
+    return this._phone;
+  }
+
+  get openingHoursStart() {
+    return this._openingHoursStart;
+  }
+
+  get openingHoursEnd() {
+    return this._openingHoursEnd;
+  }
+
+  get address() {
+    return this._address;
+  }
+
+  get category() {
+    return this._category;
+  }
+
+  get maxCapacity() {
+    return this._maxCapacity;
+  }
+
+  get enabled() {
+    return this._enabled;
   }
 }

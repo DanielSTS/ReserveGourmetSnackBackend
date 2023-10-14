@@ -156,7 +156,7 @@ export default class Router {
       return createReview.execute(body);
     });
 
-    http.on('post', '/commetns', function (params: any, body: any) {
+    http.on('post', '/comments', function (params: any, body: any) {
       return createComment.execute(body);
     });
   }
