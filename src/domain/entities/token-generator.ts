@@ -3,7 +3,7 @@ import User from './user';
 
 export default class TokenGenerator {
   static EXPIRES_IN = 1000000;
-  static key = 'seu secret';
+  static key = process.env.TOKEN_KEY as string;
 
   static sign(user: User, date: Date) {
     return sign(
