@@ -1,4 +1,4 @@
-import EstablishmentDao, { EstablishmentDto } from '../dao/establishment-dao';
+import EstablishmentDao, { EstablishmentDto } from '../daos/establishment-dao';
 
 export default class GetEstablishments {
   constructor(private readonly establishmentDao: EstablishmentDao) {}

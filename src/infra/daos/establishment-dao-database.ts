@@ -1,7 +1,7 @@
 import EstablishmentDao, {
   EstablishmentDto,
   ReviewDto
-} from '../../application/dao/establishment-dao';
+} from '../../application/daos/establishment-dao';
 import Connection from '../database/connection';
 
 export default class EstablishmentDaoDatabase implements EstablishmentDao {

@@ -1,4 +1,4 @@
-import ReservationDao, { ReservationDto } from '../dao/reservation-dao';
+import ReservationDao, { ReservationDto } from '../daos/reservation-dao';
 
 export default class GetReservationsByUser {
   constructor(private readonly reservationDao: ReservationDao) {}

@@ -41,6 +41,7 @@ test('Deve atualizar um establishiment', async () => {
 
   const result = await updateEstablishment.execute({
     ownerId: userOwner.id,
+    ownerName: 'New User Name Owner',
     establishmentName: 'Acme Hotel',
     password: 'password',
     phone: 'phone',
@@ -54,16 +55,18 @@ test('Deve atualizar um establishiment', async () => {
 
   expect(result).toBeDefined();
 
-  const output = await establishmentRepository.getById(result);
+  const outputEstablishment = await establishmentRepository.getById(result);
 
-  expect(output.ownerId).toEqual(userOwner.id);
-  expect(output.name).toEqual('Acme Hotel');
-  // expect(output.password).toEqual('password', 'password');
-  expect(output.phone).toEqual('phone');
-  expect(output.openingHoursStart).toEqual(start);
-  expect(output.openingHoursEnd).toEqual(end);
-  expect(output.category).toEqual('category');
-  expect(output.maxCapacity).toEqual(50);
-  expect(output.address).toEqual('address');
-  expect(output.enabled).toEqual(true);
+  const outputUser = await userRepository.getById(outputEstablishment.ownerId);
+
+  expect(outputEstablishment.ownerId).toEqual(userOwner.id);
+  expect(outputEstablishment.name).toEqual('Acme Hotel');
+  expect(outputUser.password).toEqual('password');
+  expect(outputEstablishment.phone).toEqual('phone');
+  expect(outputEstablishment.openingHoursStart).toEqual(start);
+  expect(outputEstablishment.openingHoursEnd).toEqual(end);
+  expect(outputEstablishment.category).toEqual('category');
+  expect(outputEstablishment.maxCapacity).toEqual(50);
+  expect(outputEstablishment.address).toEqual('address');
+  expect(outputEstablishment.enabled).toEqual(true);
 });

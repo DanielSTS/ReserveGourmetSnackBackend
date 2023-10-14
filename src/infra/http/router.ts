@@ -7,7 +7,7 @@ import UpdateReservation from '../../application/use-cases/update-reservation';
 import RepositoryFactory from '../../domain/repositories/repository-factory';
 import HttpServer from './http-server';
 import GetEstablishments from '../../application/use-cases/get-establishments';
-import DaoFactory from '../../application/dao/dao-factory';
+import DaoFactory from '../../application/daos/dao-factory';
 import GetReservationsByUser from '../../application/use-cases/get-reservations-by-user';
 import GetReservationsByEstablishment from '../../application/use-cases/get-reservations-by-establishment';
 import Login from '../../application/use-cases/login';

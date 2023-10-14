@@ -1,4 +1,4 @@
-import UserDao, { OwnerDto, UserDto } from '../../application/dao/user-dao';
+import UserDao, { OwnerDto, UserDto } from '../../application/daos/user-dao';
 import Connection from '../database/connection';
 
 export default class UserDaoDatabase implements UserDao {

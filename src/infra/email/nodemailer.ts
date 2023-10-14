@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import SendEmailService from '../../application/send-email-service';
+import SendEmailService from '../../application/services/send-email-service';
 
 export class NodeMailerService implements SendEmailService {
   private transporter: nodemailer.Transporter;

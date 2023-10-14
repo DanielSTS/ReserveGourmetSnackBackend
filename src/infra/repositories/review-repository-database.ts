@@ -15,7 +15,7 @@ export default class ReviewRepositoryDatabase implements ReviewRepository {
       review.userId,
       review.id,
       review.rating,
-      review.comment,
+      review.comment
     ];
     await this.connection.query(query, values);
   }

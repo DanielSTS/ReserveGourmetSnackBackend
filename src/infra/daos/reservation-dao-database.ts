@@ -1,6 +1,6 @@
 import ReservationDao, {
   ReservationDto
-} from '../../application/dao/reservation-dao';
+} from '../../application/daos/reservation-dao';
 import Connection from '../database/connection';
 
 export default class ReservationDaoDatabase implements ReservationDao {

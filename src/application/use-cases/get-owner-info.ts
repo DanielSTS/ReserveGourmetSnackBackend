@@ -1,6 +1,6 @@
-import EstablishmentDao, { EstablishmentDto } from '../dao/establishment-dao';
-import ReservationDao, { ReservationDto } from '../dao/reservation-dao';
-import UserDao, { OwnerDto } from '../dao/user-dao';
+import EstablishmentDao, { EstablishmentDto } from '../daos/establishment-dao';
+import ReservationDao, { ReservationDto } from '../daos/reservation-dao';
+import UserDao, { OwnerDto } from '../daos/user-dao';
 
 export default class GetOwnerInfo {
   constructor(

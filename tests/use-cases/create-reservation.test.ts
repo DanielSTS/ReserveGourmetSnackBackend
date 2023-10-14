@@ -1,4 +1,4 @@
-import SendEmailService from '../../src/application/send-email-service';
+import SendEmailService from '../../src/application/services/send-email-service';
 import CreateReservation from '../../src/application/use-cases/create-reservation';
 import Establishment from '../../src/domain/entities/establishment';
 import User from '../../src/domain/entities/user';

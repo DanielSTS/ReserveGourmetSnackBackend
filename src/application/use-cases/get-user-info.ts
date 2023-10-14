@@ -1,5 +1,5 @@
-import ReservationDao, { ReservationDto } from '../dao/reservation-dao';
-import UserDao, { UserDto } from '../dao/user-dao';
+import ReservationDao, { ReservationDto } from '../daos/reservation-dao';
+import UserDao, { UserDto } from '../daos/user-dao';
 
 export default class GetUserInfo {
   constructor(

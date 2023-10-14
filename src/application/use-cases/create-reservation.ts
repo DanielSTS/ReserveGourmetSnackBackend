@@ -1,7 +1,7 @@
 import EstablishmentRepository from '../../domain/repositories/establishment-repository';
 import ReservationRepository from '../../domain/repositories/reservation-repository';
 import UserRepository from '../../domain/repositories/user-repository';
-import SendEmailService from '../send-email-service';
+import SendEmailService from '../services/send-email-service';
 
 export default class CreateReservation {
   constructor(
